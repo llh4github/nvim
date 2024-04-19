@@ -72,6 +72,7 @@ return {
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
         pyright = {},
+        rust_analyzer = {},
       },
     },
   },
@@ -146,6 +147,9 @@ return {
     opts = function(_, opts)
       -- add tsx and treesitter
       vim.list_extend(opts.ensure_installed, {
+        "ron",
+        "rust",
+        "toml",
         "tsx",
         "typescript",
       })
