@@ -1,5 +1,4 @@
 return {
-
   {
     "williamboman/mason.nvim",
     opts = {
@@ -31,7 +30,6 @@ return {
         "vue",
         "rust",
         "go",
-        "json",
       })
     end,
   },
