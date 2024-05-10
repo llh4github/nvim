@@ -1,29 +1,6 @@
 return {
   {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "eslint-lsp",
-        "html-lsp",
-        "json-lsp",
-        "typescript-language-server",
-        "vue-language-server",
-      },
-    },
-  },
-  {
     "nvim-lspconfig",
-    -- opts = {
-    --   setup = {
-    --     volar = function()
-    --       require("lazyvim.util").lsp.on_attach(function(client, _)
-    --         if client.name == "volar" then
-    --           client.server_capabilities.documentFormattingProvider = false
-    --         end
-    --       end)
-    --     end,
-    --   },
-    -- },
     opts = function(_, opts)
       local mason_registry = require("mason-registry")
       local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
