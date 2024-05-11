@@ -30,12 +30,25 @@ return {
         "vue",
         "rust",
         "go",
+        "java",
+        "xml",
       })
     end,
   },
+  { "folke/neoconf.nvim" },
   {
-    "m4xshen/hardtime.nvim",
-    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    opts = {},
+    "nvim-neo-tree/neo-tree.nvim",
+    config = function()
+      require("neo-tree").setup({
+        follow_current_file = {
+          enabled = false, -- This will find and focus the file in the active buffer every time
+          --               -- the current file is changed while the tree is open.
+          leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+        },
+        filesystem = {
+          group_empty_dirs = true,
+        },
+      })
+    end,
   },
 }
