@@ -8,4 +8,5 @@ foo.*
 data
 lazy-lock.json
 .neoconf.json
+lazyvim.json
 
