@@ -19,10 +19,15 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
+    { import = "lazyvim.plugins.extras.util.octo" },
     -- other plugins
+    { import = "lazyvim.plugins.extras.ui.treesitter-context" },
+    { import = "lazyvim.plugins.extras.editor.illuminate" },
+    { import = "lazyvim.plugins.extras.editor.outline" },
     { import = "lazyvim.plugins.extras.util.startuptime" },
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
+    { import = "lazyvim.plugins.extras.lsp.none-ls" },
     { import = "lazyvim.plugins.extras.coding.luasnip" },
     -- dev lang
     { import = "lazyvim.plugins.extras.lang.git" },
