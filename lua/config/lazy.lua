@@ -25,6 +25,7 @@ require("lazy").setup({
     --#endregion
     { import = "lazyvim.plugins.extras.util.octo" },
     -- other plugins
+    { import = "lazyvim.plugins.extras.ui.dashboard-nvim" },
     { import = "lazyvim.plugins.extras.ui.treesitter-context" },
     { import = "lazyvim.plugins.extras.editor.illuminate" },
     { import = "lazyvim.plugins.extras.editor.aerial" },
