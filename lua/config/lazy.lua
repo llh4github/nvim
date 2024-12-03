@@ -19,6 +19,10 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
+    --#region ai
+    { import = "lazyvim.plugins.extras.ai.copilot" },
+    { import = "lazyvim.plugins.extras.ai.copilot-chat" },
+    --#endregion
     { import = "lazyvim.plugins.extras.util.octo" },
     -- other plugins
     { import = "lazyvim.plugins.extras.ui.treesitter-context" },
