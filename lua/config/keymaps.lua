@@ -9,7 +9,10 @@ unmap("n", "<leader>fT", { desc = "Terminal (cwd)" })
 unmap("n", "<leader>ft", { desc = "Terminal (Root Dir)" })
 unmap("n", "<c-/>", { desc = "Terminal (Root Dir)" })
 --#endregion
---
+--#region common mappings
+map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>wa<cr><esc>", { desc = "Save All Modified File" })
+map({ "i" }, "<C-a>", "<Esc>ggVG", { noremap = true, desc = "全选" })
+--#endregion
 --#region floating terminal
 map("n", "<M-F12>", function()
   Snacks.terminal(nil, { cwd = LazyVim.root() })
