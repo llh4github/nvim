@@ -2,6 +2,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }, -- 可选的图标支持
+    cond = (function() return not vim.g.vscode end),
     config = function()
       require('lualine').setup {
         options = {

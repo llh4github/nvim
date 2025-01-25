@@ -1,6 +1,8 @@
 return {
   {
     "goolord/alpha-nvim",
+    vscode = false,
+    cond = (function() return not vim.g.vscode end),
     -- dependencies = { 'echasnovski/mini.icons' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
