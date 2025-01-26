@@ -2,6 +2,12 @@
 require("config.options")
 require("config.lazy")
 
+if vim.g.vscode then
+    -- VSCode extension
+	require("myvscode.keymaps")
+else
+    -- ordinary Neovim
+end
 
 -- 设置高亮组
 vim.api.nvim_set_hl(0, "Visual", { bg = "#475569" })
