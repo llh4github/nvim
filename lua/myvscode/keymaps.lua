@@ -91,23 +91,31 @@ map(
     end,
     { desc = "format Document and Save files" }
 )
+
 map(
     "n", "<leader>fr",
     function()
-        vscode.action('workbench.action.openRecent')
+        vscode.action('workbench.action.quickOpen')
     end,
     { desc = "openRecent files" }
 )
 
 map(
-    "n", "<leader>lZ",
+    "n", "<leader>fs",
+    function()
+        vscode.action('editor.showCallHierarchy')
+    end,
+    { desc = "file struct" }
+)
+map(
+    "n", "<leader>lz",
     function()
         vscode.action('workbench.action.toggleZenMode')
     end,
     { desc = "toggleZenMode" }
 )
 map(
-    "n", "<leader>lF",
+    "n", "<leader>lf",
     function()
         vscode.action('workbench.action.toggleFullScreen')
     end,
