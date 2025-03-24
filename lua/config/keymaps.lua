@@ -12,6 +12,7 @@ unmap("n", "<c-/>", { desc = "Terminal (Root Dir)" })
 --#region common mappings
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>wa<cr><esc>", { desc = "Save All Modified File" })
 map({ "i" }, "<C-a>", "<Esc>ggVG", { noremap = true, desc = "全选" })
+map({ "n" }, "<a-1>", "<leader>fe", { remap = true, desc = "Explorer NeoTree (Root Dir)" })
 --#endregion
 --#region floating terminal
 map("n", "<M-F12>", function()
