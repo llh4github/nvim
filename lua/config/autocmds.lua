@@ -15,6 +15,7 @@ vim.opt.endofline = true
 vim.o.fixendofline = true
 vim.o.endofline = true
 
+-- 文件末尾添加空行
 vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "*",
     callback = function()
