@@ -6,3 +6,14 @@ if is_windows then
     vim.o.shellcmdflag = "-NoLogo -NoProfile -Command Set-Location -LiteralPath '%s'"
 end
 require("config.lazy")
+
+-- GUI 配置，后面把它移到单独的文件中
+if vim.g.neovide then
+    vim.g.neovide_title_background_color = string.format(
+        "%x",
+        vim.api.nvim_get_hl(0, { id = vim.api.nvim_get_hl_id_by_name("Normal") }).bg
+    )
+
+    vim.g.neovide_title_text_color = "pink"
+    vim.g.neovide_remember_window_size = true
+end
