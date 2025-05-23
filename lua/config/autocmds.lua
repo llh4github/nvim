@@ -16,12 +16,21 @@ vim.o.fixendofline = true
 vim.o.endofline = true
 
 -- 文件末尾添加空行
+local function insert_newline()
+    local last_line = vim.fn.getline('$')
+    if last_line ~= "" then
+        vim.fn.append(vim.fn.line('$'), "")
+    end
+end
+
+-- 文件末尾添加空行
 vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "*",
-    callback = function()
-        local last_line = vim.fn.getline('$')
-        if last_line ~= "" then
-            vim.fn.append(vim.fn.line('$'), "")
-        end
-    end
+    callback = insert_newline,
+})
+
+-- 文件末尾添加空行
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*",
+    callback = insert_newline,
 })
