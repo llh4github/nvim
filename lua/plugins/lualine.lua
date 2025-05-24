@@ -32,7 +32,61 @@ local conditions = {
         return gitdir and #gitdir > 0 and #gitdir < #filepath
     end,
 }
-
+-- -- Function to get the current mode indicator as a single character
+local function mode()
+    -- Map of modes to their respective shorthand indicators
+    local mode_map = {
+        n = 'N',      -- Normal mode
+        i = 'I',      -- Insert mode
+        v = 'V',      -- Visual mode
+        [''] = 'V',  -- Visual block mode
+        V = 'V',      -- Visual line mode
+        c = 'C',      -- Command-line mode
+        no = 'N',     -- NInsert mode
+        s = 'S',      -- Select mode
+        S = 'S',      -- Select line mode
+        ic = 'I',     -- Insert mode (completion)
+        R = 'R',      -- Replace mode
+        Rv = 'R',     -- Virtual Replace mode
+        cv = 'C',     -- Command-line mode
+        ce = 'C',     -- Ex mode
+        r = 'R',      -- Prompt mode
+        rm = 'M',     -- More mode
+        ['r?'] = '?', -- Confirm mode
+        ['!'] = '!',  -- Shell mode
+        t = 'T',      -- Terminal mode
+    }
+    -- Return the mode shorthand or [UNKNOWN] if no match
+    return mode_map[vim.fn.mode()] or '[UNKNOWN]'
+end
+-- Function to get the color associated with the current mode in Vim
+local function get_mode_color()
+    -- Define a table mapping modes to their associated colors
+    local mode_color = {
+        n = colors.DARKBLUE,
+        i = colors.VIOLET,
+        v = colors.RED,
+        [''] = colors.BLUE,
+        V = colors.RED,
+        c = colors.MAGENTA,
+        no = colors.RED,
+        s = colors.ORANGE,
+        S = colors.ORANGE,
+        [''] = colors.ORANGE,
+        ic = colors.YELLOW,
+        R = colors.ORANGE,
+        Rv = colors.ORANGE,
+        cv = colors.RED,
+        ce = colors.RED,
+        r = colors.CYAN,
+        rm = colors.CYAN,
+        ['r?'] = colors.CYAN,
+        ['!'] = colors.RED,
+        t = colors.RED,
+    }
+    -- Return the opposite color, or fallback to foreground color
+    return mode_color[vim.fn.mode()]
+end
 -- Config
 local config = {
     options = {
@@ -78,18 +132,11 @@ local function ins_right(component)
     table.insert(config.sections.lualine_x, component)
 end
 
-ins_left {
-    function()
-        return '▊'
-    end,
-    color = { fg = colors.blue },      -- Sets highlighting of component
-    padding = { left = 0, right = 1 }, -- We don't need space before this
-}
 
 ins_left {
     -- mode component
     function()
-        return ''
+        return ''
     end,
     color = function()
         -- auto change color according to neovims mode
@@ -117,20 +164,31 @@ ins_left {
         }
         return { fg = mode_color[vim.fn.mode()] }
     end,
-    padding = { right = 1 },
+    padding = { left = 1, right = 1 },
 }
 
 ins_left {
-    -- filesize component
-    'filesize',
-    cond = conditions.buffer_not_empty,
+    'branch',
+    icon = '󰊢 ',
+    color = { fg = colors.violet, gui = 'bold' },
+    padding = { left = 1, right = 1 },
 }
 
 ins_left {
-    'filename',
-    cond = conditions.buffer_not_empty,
-    color = { fg = colors.magenta, gui = 'bold' },
+    'diff',
+    -- Is it me or the symbol for modified us really weird
+    symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
+    diff_color = {
+        added = { fg = colors.green },
+        modified = { fg = colors.orange },
+        removed = { fg = colors.red },
+    },
 }
+-- ins_left {
+--     'filename',
+--     cond = conditions.buffer_not_empty,
+--     color = { fg = colors.magenta, gui = 'bold' },
+-- }
 
 ins_left { 'location' }
 
@@ -155,7 +213,44 @@ ins_left {
     end,
 }
 
-ins_left {
+ins_right {
+    function()
+        local reg = vim.fn.reg_recording()
+        return reg ~= '' and '[' .. reg .. ']' or ''
+    end,
+    color = {
+        fg = '#ff3344',
+        gui = 'bold',
+    },
+    cond = function()
+        return vim.fn.reg_recording() ~= ''
+    end,
+}
+
+ins_right {
+    'selectioncount',
+    color = {
+        fg = colors.GREEN,
+        gui = 'bold',
+    },
+}
+
+-- Add components to right sections
+ins_right {
+    'o:encoding',       -- option component same as &encoding in viml
+    fmt = string.upper, -- I'm not sure why it's upper case either ;)
+    cond = conditions.hide_in_width,
+    color = { fg = colors.green, gui = 'bold' },
+}
+
+ins_right {
+    'fileformat',
+    fmt = string.upper,
+    icons_enabled = true,
+    color = { fg = colors.green, gui = 'bold' },
+}
+
+ins_right {
     -- Lsp server name .
     function()
         local msg = 'No Active Lsp'
@@ -172,50 +267,10 @@ ins_left {
         end
         return msg
     end,
-    icon = ' LSP:',
+    icon = ' ',
     color = { fg = '#ffffff', gui = 'bold' },
 }
 
--- Add components to right sections
-ins_right {
-    'o:encoding',       -- option component same as &encoding in viml
-    fmt = string.upper, -- I'm not sure why it's upper case either ;)
-    cond = conditions.hide_in_width,
-    color = { fg = colors.green, gui = 'bold' },
-}
-
-ins_right {
-    'fileformat',
-    fmt = string.upper,
-    icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-    color = { fg = colors.green, gui = 'bold' },
-}
-
-ins_right {
-    'branch',
-    icon = '',
-    color = { fg = colors.violet, gui = 'bold' },
-}
-
-ins_right {
-    'diff',
-    -- Is it me or the symbol for modified us really weird
-    symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
-    diff_color = {
-        added = { fg = colors.green },
-        modified = { fg = colors.orange },
-        removed = { fg = colors.red },
-    },
-    cond = conditions.hide_in_width,
-}
-
-ins_right {
-    function()
-        return '▊'
-    end,
-    color = { fg = colors.blue },
-    padding = { left = 1 },
-}
 
 -- Now don't forget to initialize lualine
 return {

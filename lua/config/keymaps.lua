@@ -14,6 +14,14 @@ map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>wa<cr><esc>", { desc = "Save All Modi
 map({ "i" }, "<C-a>", "<Esc>ggVG", { noremap = true, desc = "全选" })
 map({ "n" }, "<a-1>", "<leader>fe", { remap = true, desc = "Explorer NeoTree (Root Dir)" })
 --#endregion
+
+-- formatting
+map({ "n", "v" }, "<leader>cf", function()
+  LazyVim.format({ force = true })
+  -- 保存当前缓冲区
+  vim.cmd("write")
+end, { desc = "Format" })
+
 --#region floating terminal
 map("n", "<M-F12>", function()
   Snacks.terminal(nil, { cwd = LazyVim.root() })

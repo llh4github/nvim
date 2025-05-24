@@ -34,3 +34,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = "*",
     callback = insert_newline,
 })
+-- 创建自动命令组（确保唯一性）
+vim.api.nvim_create_augroup("AutoSaveOnExit", { clear = true })
+
+-- 设置退出前自动保存
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    group = "AutoSaveOnExit",
+    pattern = "*",            -- 适用于所有文件
+    callback = function()
+        vim.cmd("silent! wa") -- 静默忽略错误
+    end,
+})

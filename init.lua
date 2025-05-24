@@ -13,7 +13,8 @@ if vim.g.neovide then
         "%x",
         vim.api.nvim_get_hl(0, { id = vim.api.nvim_get_hl_id_by_name("Normal") }).bg
     )
-
+    vim.o.guifont = "JetBrainsMono Nerd Font:h16"
     vim.g.neovide_title_text_color = "pink"
     vim.g.neovide_remember_window_size = true
+    vim.g.neovide_cursor_vfx_mode = "pixiedust"
 end
