@@ -9,4 +9,6 @@ vim.o.relativenumber = true
 vim.o.number = true
 -- 设置默认使用系统剪贴板
 vim.opt.clipboard = "unnamedplus"
+vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
+vim.g.lazyvim_picker = "telescope"
 -- vim.g.autoformat = false
