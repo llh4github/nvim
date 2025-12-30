@@ -12,6 +12,9 @@ vim.opt.endofline = true
 vim.o.fixendofline = true
 vim.o.endofline = true
 
+-- 创建自动命令组（确保唯一性）
+local group = vim.api.nvim_create_augroup("AutoSaveOnExit", { clear = true })
+
 -- 文件末尾添加空行
 local function insert_newline()
   local last_line = vim.fn.getline("$")
@@ -23,22 +26,31 @@ end
 -- 文件末尾添加空行
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*",
-  callback = insert_newline,
+  callback = function()
+    if vim.bo.modified then
+      insert_newline()
+    end
+  end,
 })
 
 -- 文件末尾添加空行
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*",
-  callback = insert_newline,
+  callback = function()
+    if vim.bo.modified then
+      insert_newline()
+    end
+  end,
 })
--- 创建自动命令组（确保唯一性）
-vim.api.nvim_create_augroup("AutoSaveOnExit", { clear = true })
 
 -- 设置退出前自动保存
 vim.api.nvim_create_autocmd("VimLeavePre", {
-  group = "AutoSaveOnExit",
+  group = group,
   pattern = "*", -- 适用于所有文件
   callback = function()
+    if vim.bo.modified then
+      insert_newline()
+    end
     vim.cmd("silent! wa") -- 静默忽略错误
   end,
 })
