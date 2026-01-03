@@ -27,9 +27,9 @@ end
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*",
   callback = function()
-    -- if vim.bo.modified then
-    insert_newline()
-    -- end
+    if vim.bo.modified then
+      insert_newline()
+    end
   end,
 })
 

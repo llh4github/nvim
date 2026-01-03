@@ -16,11 +16,11 @@ map({ "n" }, "<a-1>", "<leader>fe", { remap = true, desc = "Explorer NeoTree (Ro
 --#endregion
 
 -- formatting
-map({ "n", "v" }, "<leader>cf", function()
-  LazyVim.format({ force = true })
-  -- 保存当前缓冲区
-  vim.cmd("write")
-end, { desc = "Format" })
+-- map({ "n", "v" }, "<leader>cf", function()
+--   LazyVim.format({ force = true })
+--   -- 保存当前缓冲区
+--   vim.cmd("write")
+-- end, { desc = "Format" })
 
 --#region floating terminal
 map("n", "<M-F12>", function()
