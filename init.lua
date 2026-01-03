@@ -1,21 +1,19 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.options")
-require("config.lazy")
-
-if vim.g.vscode then
-    -- VSCode extension
-	require("myvscode.keymaps")
-else
-    -- ordinary Neovim
+-- 检测是否为 Windows 系统
+local is_windows = package.config:sub(1, 1) == "\\" or os.getenv("OS") == "Windows_NT"
+if is_windows then
+  vim.o.shell = "pwsh.exe"
+  vim.o.shellcmdflag = "-NoLogo -NoProfile -Command Set-Location -LiteralPath '%s'"
 end
 
--- 设置高亮组
-vim.api.nvim_set_hl(0, "Visual", { bg = "#475569" })
-vim.api.nvim_set_hl(0, "YankHighlight", { bg = "#00274D", fg = "#ADD8E6", bold = true })
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank({ higroup = "YankHighlight", timeout = 2333 })
-	end,
-})
+require("config.lazy")
+
+-- GUI 配置，后面把它移到单独的文件中
+if vim.g.neovide then
+  vim.g.neovide_title_background_color =
+    string.format("%x", vim.api.nvim_get_hl(0, { id = vim.api.nvim_get_hl_id_by_name("Normal") }).bg)
+  vim.o.guifont = "JetBrainsMono Nerd Font:h16"
+  vim.g.neovide_title_text_color = "pink"
+  vim.g.neovide_remember_window_size = true
+  vim.g.neovide_cursor_vfx_mode = "pixiedust"
+end

@@ -1,9 +1,12 @@
 return {
-  {
-    "folke/tokyonight.nvim",
-    cond = (function() return not vim.g.vscode end),
-    config = function()
-      vim.cmd([[colorscheme tokyonight]])
-    end
+  "folke/tokyonight.nvim",
+  opts = {
+    -- style = "night",
+    style = "moon",
+    transparent = true,
+    styles = {
+      sidebars = "transparent", -- 侧边栏透明
+      floats = "transparent", -- 浮动窗口透明
+    },
   },
 }

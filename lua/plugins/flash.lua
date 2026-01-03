@@ -1,11 +1,7 @@
 return {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {
-        modes = {
-            char = {
-                jump_labels = true
-            }
-        }
-    }
+  "folke/flash.nvim",
+  keys = {
+    -- disable the default flash keymap
+    { "s", mode = { "n", "x", "o" }, false },
+  },
 }
