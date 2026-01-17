@@ -12,47 +12,13 @@ vim.opt.endofline = true
 vim.o.fixendofline = true
 vim.o.endofline = true
 
--- 创建自动命令组（确保唯一性）
-local group = vim.api.nvim_create_augroup("AutoSaveOnExit", { clear = true })
-
--- 文件末尾添加空行
-local function insert_newline()
-  local last_line = vim.fn.getline("$")
-  if last_line ~= "" then
-    vim.fn.append(vim.fn.line("$"), "")
+-- 在配置中添加
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "rust",
+  callback = function()
+    vim.opt.formatoptions = vim.opt.formatoptions - { "a" } -- 禁用自动格式化
+    vim.bo.formatexpr = nil
   end
-end
-
--- 文件末尾添加空行
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.modified then
-      insert_newline()
-    end
-  end,
-})
-
--- 文件末尾添加空行
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.modified then
-      insert_newline()
-    end
-  end,
-})
-
--- 设置退出前自动保存
-vim.api.nvim_create_autocmd("VimLeavePre", {
-  group = group,
-  pattern = "*", -- 适用于所有文件
-  callback = function()
-    vim.cmd("silent! wa") -- 静默忽略错误
-    if vim.bo.modified then
-      insert_newline()
-    end
-  end,
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
