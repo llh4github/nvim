@@ -5,7 +5,7 @@ return {
     opts = {
       async = true,
       default_format_opts = {
-        timeout_ms = 3000,
+        timeout_ms = 300,
       },
       formatters_by_ft = {
         ["*"] = { "trim_whitespace" }, -- 在所有文件类型最后执行
