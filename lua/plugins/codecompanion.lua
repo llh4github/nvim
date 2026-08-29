@@ -11,10 +11,12 @@ return {
       },
     },
     adapters = {
-      omp = {
-        type = "custom",
-        command = "omp",
-        args = { "acp" },
+      acp = {
+        omp = {
+          type = "custom",
+          command = "omp",
+          args = { "acp" },
+        },
       },
     },
     interactions = {
