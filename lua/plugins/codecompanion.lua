@@ -17,5 +17,10 @@ return {
         args = { "acp" },
       },
     },
+    interactions = {
+      chat = {
+        adapter = "omp",
+      },
+    },
   },
 }
