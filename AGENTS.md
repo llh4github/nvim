@@ -5,8 +5,7 @@
 使用中文回答。
 这是一个基于 **LazyVim** 的 Neovim 配置文件仓库。核心目标是提供一个可复用的 Neovim 配置模板，集成常用插件（如 CodeCompanion ACP、格式化工具、颜色主题等），并通过 `lazy.nvim` 管理插件生命周期。
 
-- **用途**: 个人/团队 Neovim 配置起点，支持快速部署和扩展。
-- **当前重点**: 通过 CodeCompanion 接入 `omp acp` 作为默认聊天 Agent。
+- **用途**: 个人Neovim 配置起点，支持快速部署和扩展。
 
 ## 架构与数据流
 
@@ -248,25 +247,6 @@ nvim
 # 1. 检查插件是否加载成功 (:Lazy)
 # 2. 测试按键映射是否生效
 # 3. 验证插件功能正常
-```
-
-### 未来改进方向
-
-- 添加 `plenary.nvim` 测试框架支持
-- 集成 StyLua 到 pre-commit hook
-- 添加 GitHub Actions CI 配置
-- 添加插件配置的单元测试
-
-## 文档结构
-
-```
-docs/
-├── acp-adapters.md              # CodeCompanion ACP 适配器配置指南
-├── codecompanion-acp.md         # CodeCompanion ACP 功能参考
-├── codecompanion-acp-design.md  # omp ACP 集成设计文档
-└── superpowers/
-    └── plans/
-        └── 2026-08-29-codecompanion-acp-integration.md  # 实施计划
 ```
 
 ## 常见任务
