@@ -28,3 +28,5 @@ map("n", "<M-F12>", function()
 end, { desc = "Terminal (Root Dir)" })
 map("t", "<M-F12>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 --#endregion
+-- codecompanion chat
+map("n", "<leader>aa", "<cmd>CodeCompanionChat<cr>", { desc = "CodeCompanion Chat" })
