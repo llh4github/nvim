@@ -37,7 +37,23 @@ function M.setup()
   -- 输入与交互
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_no_idle = true
-  vim.g.neovide_input_ime = false
+
+  -- IME：仅在插入模式和 / ? 搜索时启用，普通模式/普通命令行保持关闭，
+  -- 避免导航时误切中文输入法
+  local function set_ime(args)
+    vim.g.neovide_input_ime = args.event:match("Enter$") ~= nil
+  end
+
+  vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+    group = vim.api.nvim_create_augroup("NeovideIme", { clear = true }),
+    pattern = "*",
+    callback = set_ime,
+  })
+  vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
+    group = "NeovideIme",
+    pattern = "[\\/\\?]",
+    callback = set_ime,
+  })
 end
 
 return M
