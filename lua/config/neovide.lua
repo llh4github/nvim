@@ -25,7 +25,7 @@ function M.setup()
   })
 
   -- 字体（家族名取本机注册表中的实际名字）
-  vim.o.guifont = "JetBrainsMonoNerdFontMono:h16"
+  vim.o.guifont = "JetBrainsMono Nerd Font Mono:h16"
 
   -- 光标
   vim.g.neovide_cursor_antialiasing = true
